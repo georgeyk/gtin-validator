@@ -24,6 +24,9 @@ class GTINValidatorTest(unittest.TestCase):
     def test_alphanumeric_string(self):
         self.assertFalse(is_valid_GTIN("98795147A"))
 
+    def test_correct_string_with_spaces(self):
+        self.assertTrue(is_valid_GTIN(" 987 951 47 "))
+
     def test_valid_gtin8_string_no_leading_zeros(self):
         self.assertTrue(is_valid_GTIN("98795147"))
 

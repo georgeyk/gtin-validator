@@ -35,11 +35,11 @@ def add_check_digit(code):
     return cleaned_code + str(_gtin_checksum(cleaned_code))
 
 
-def _clean(code, fill=14):
+def _clean(code):
     if isinstance(code, six.integer_types):
         return str(code)
     elif isinstance(code, six.string_types):
-        return code.replace("-", "").strip()
+        return "".join(c for c in code if c.isalnum())
     else:
         raise TypeError("Expected string or integer type as input parameter")
 
@@ -47,7 +47,7 @@ def _clean(code, fill=14):
 def _is_valid_code(code):
     if not code.isdigit():
         return False
-    elif len(code) not in (8, 12, 13, 14, 18):
+    elif len(code) not in (8, 12, 13, 14):
         return False
     else:
         return _is_gtin_checksum_valid(code.zfill(14))
