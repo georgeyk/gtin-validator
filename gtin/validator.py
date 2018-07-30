@@ -39,9 +39,15 @@ def _clean(code):
     if isinstance(code, six.integer_types):
         return str(code)
     elif isinstance(code, six.string_types):
-        return "".join(c for c in code if c.isalnum())
-    else:
+        if '--' not in code:
+            code = code.replace("-", "").replace(" ", "").strip()
+
+    try:
+       int(code)
+    except ValueError:
         raise TypeError("Expected string or integer type as input parameter")
+
+    return code
 
 
 def _is_valid_code(code):

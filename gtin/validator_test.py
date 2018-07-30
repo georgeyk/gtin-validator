@@ -22,7 +22,12 @@ class GTINValidatorTest(unittest.TestCase):
         self.assertFalse(is_valid_GTIN("123-456-7890"))
 
     def test_alphanumeric_string(self):
-        self.assertFalse(is_valid_GTIN("98795147A"))
+        with self.assertRaises(TypeError):
+            is_valid_GTIN("98795148A")
+
+    def test_multiple_dashes_string(self):
+        with self.assertRaises(TypeError):
+            is_valid_GTIN("9517---53-85-2654")
 
     def test_correct_string_with_spaces(self):
         self.assertTrue(is_valid_GTIN(" 987 951 47 "))
